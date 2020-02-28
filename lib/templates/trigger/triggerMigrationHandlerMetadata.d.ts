@@ -1,0 +1,2 @@
+declare const triggerMigrationHandlerMetadataTemplate: string;
+export default triggerMigrationHandlerMetadataTemplate;

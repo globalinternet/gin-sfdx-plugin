@@ -1,0 +1,10 @@
+{
+  "commandDescription": "print a greeting and your org IDs",
+  "nameFlagDescription": "name to print",
+  "forceFlagDescription": "example boolean flag",
+  "errorNoOrgResults": "No results found for the org '%s'.",
+  "triggerDirFlagDescription": "output directory for triggers",
+  "metadataDirFlagDescription": "output directory for custom metadata records",
+  "objectDirFlagDescription": "output directory for objects",
+  "triggerHandlerDirFlagDescription": "output directory for trigger handlers"
+}
