@@ -11,11 +11,11 @@ export default class Create extends SfdxCommand {
 
   public static description = messages.getMessage('commandDescription');
   public static examples = [
-    '$ sfdx gin:user:create'
+    '$ sfdx gin:user:create --profilename Sales --permissionsetnames "Marketing, Sales" --roleName="SVP Manager"'
   ];
 
   protected static flagsConfig = {
-    autousername: flags.string({char: 'a', required: true, description: 'Generate a unique user name'}),
+    autousername: flags.boolean({char: 'a', default: true, description: 'Generate a unique user name'}),
     profilename: flags.string({char: 'p', required: true, description: 'Profile name'}),
     permissionsetnames: flags.string({char: 'e', required: true, description: 'PermissionSet/PermissionSetGroup names'}),
     usernamedomain: flags.string({char: 'd', default: 'globalinter.net', description: 'UserName domain. E.g globalinter.net'})
@@ -30,6 +30,8 @@ export default class Create extends SfdxCommand {
     const project = await SfdxProject.resolve();
     const commandUserName = this.org.getUsername();
 
+    this.ux.log(`Create user on scratch org ${commandUserName}`);
+
     if (!project) {
       throw new SfdxError(messages.getMessage('errorNoSfdxProject'));
     }
@@ -38,8 +40,9 @@ export default class Create extends SfdxCommand {
 
     const randomUserPrefix = (new Date()).getTime().toString(36) + Math.random().toString(36).slice(2);
     const userName = `${randomUserPrefix}@${this.flags.usernamedomain}`;
+    const createUserCommand = `sfdx force:user:create profileName="${this.flags.profilename}" username="${userName}" email="test@globalinter.net" permsets="${this.flags.permissionsetnames}" -u ${commandUserName}`;
 
-    exec(`sfdx force:user:create profileName="${this.flags.profilename}" username="${userName}" email="test@globalinter.net" permsets="${this.flags.permissionsetnames}" -u ${commandUserName}`, (error, stdout, stderr) => {
+    exec(createUserCommand, (error, stdout, stderr) => {
       if (error) {
         console.log(`error: ${error.message}`);
         return;
