@@ -1,0 +1,2 @@
+declare const migrationTriggerHandlerTemplate: string;
+export default migrationTriggerHandlerTemplate;

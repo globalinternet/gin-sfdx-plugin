@@ -1,14 +1,16 @@
 import { flags, SfdxCommand } from '@salesforce/command';
 import { AnyJson } from '@salesforce/ts-types';
-export default class Create extends SfdxCommand {
+export default class Trigger extends SfdxCommand {
     static description: string;
     static examples: string[];
+    static args: {
+        name: string;
+    }[];
     protected static flagsConfig: {
-        autousername: flags.Discriminated<flags.Boolean<boolean>>;
-        profilename: flags.Discriminated<flags.Option<string>>;
-        permissionsetnames: flags.Discriminated<flags.Option<string>>;
-        usernamedomain: flags.Discriminated<flags.Option<string>>;
-        rolename: flags.Discriminated<flags.Option<string>>;
+        triggerdir: flags.Discriminated<flags.Option<string>>;
+        metadatadir: flags.Discriminated<flags.Option<string>>;
+        objectdir: flags.Discriminated<flags.Option<string>>;
+        triggerhnddir: flags.Discriminated<flags.Option<string>>;
     };
     protected static requiresUsername: boolean;
     protected static supportsDevhubUsername: boolean;

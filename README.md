@@ -22,7 +22,7 @@ $ npm install -g gin-sfdx-plugin
 $ sfdx COMMAND
 running command...
 $ sfdx (-v|--version|version)
-gin-sfdx-plugin/1.0.7 darwin-x64 node-v10.16.3
+gin-sfdx-plugin/1.0.8 darwin-x64 node-v10.16.3
 $ sfdx --help [COMMAND]
 USAGE
   $ sfdx COMMAND
@@ -32,7 +32,7 @@ USAGE
 <!-- commands -->
 * [`sfdx gin:sharing:suspend [-s <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-ginsharingsuspend--s-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx gin:source:trigger [-t <string>] [-m <string>] [-o <string>] [-h <string>] [-v <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-ginsourcetrigger--t-string--m-string--o-string--h-string--v-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
-* [`sfdx gin:user:create -p <string> -e <string> [-a] [-d <string>] [-v <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-ginusercreate--p-string--e-string--a--d-string--v-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx gin:user:create -p <string> -e <string> [-a] [-d <string>] [-r <string>] [-v <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-ginusercreate--p-string--e-string--a--d-string--r-string--v-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 
 ## `sfdx gin:sharing:suspend [-s <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -62,7 +62,7 @@ EXAMPLE
   Sharing calculations suspended
 ```
 
-_See code: [lib/commands/gin/sharing/suspend.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.7/lib/commands/gin/sharing/suspend.js)_
+_See code: [lib/commands/gin/sharing/suspend.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.8/lib/commands/gin/sharing/suspend.js)_
 
 ## `sfdx gin:source:trigger [-t <string>] [-m <string>] [-o <string>] [-h <string>] [-v <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -110,16 +110,16 @@ EXAMPLE
   $ sfdx gin:source:trigger
 ```
 
-_See code: [lib/commands/gin/source/trigger.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.7/lib/commands/gin/source/trigger.js)_
+_See code: [lib/commands/gin/source/trigger.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.8/lib/commands/gin/source/trigger.js)_
 
-## `sfdx gin:user:create -p <string> -e <string> [-a] [-d <string>] [-v <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+## `sfdx gin:user:create -p <string> -e <string> [-a] [-d <string>] [-r <string>] [-v <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
 Creates user
 
 ```
 USAGE
-  $ sfdx gin:user:create -p <string> -e <string> [-a] [-d <string>] [-v <string>] [-u <string>] [--apiversion <string>] 
-  [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+  $ sfdx gin:user:create -p <string> -e <string> [-a] [-d <string>] [-r <string>] [-v <string>] [-u <string>] 
+  [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
 
 OPTIONS
   -a, --autousername                                                                Generate a unique user name
@@ -132,6 +132,8 @@ OPTIONS
                                                                                     names
 
   -p, --profilename=profilename                                                     (required) Profile name
+
+  -r, --rolename=rolename                                                           Role name
 
   -u, --targetusername=targetusername                                               username or alias for the target
                                                                                     org; overrides default target org
@@ -148,10 +150,10 @@ OPTIONS
                                                                                     this command invocation
 
 EXAMPLE
-  $ sfdx gin:user:create --profilename Sales --permissionsetnames "Marketing, Sales"
+  $ sfdx gin:user:create --profilename Sales --permissionsetnames "Marketing, Sales" --roleName="SVP Manager"
 ```
 
-_See code: [lib/commands/gin/user/create.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.7/lib/commands/gin/user/create.js)_
+_See code: [lib/commands/gin/user/create.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.8/lib/commands/gin/user/create.js)_
 <!-- commandsstop -->
 <!-- debugging-your-plugin -->
 # Debugging your plugin

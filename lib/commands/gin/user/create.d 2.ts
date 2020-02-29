@@ -8,7 +8,6 @@ export default class Create extends SfdxCommand {
         profilename: flags.Discriminated<flags.Option<string>>;
         permissionsetnames: flags.Discriminated<flags.Option<string>>;
         usernamedomain: flags.Discriminated<flags.Option<string>>;
-        rolename: flags.Discriminated<flags.Option<string>>;
     };
     protected static requiresUsername: boolean;
     protected static supportsDevhubUsername: boolean;

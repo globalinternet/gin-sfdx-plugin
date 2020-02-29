@@ -15,10 +15,11 @@ export default class Create extends SfdxCommand {
   ];
 
   protected static flagsConfig = {
-    autousername: flags.boolean({char: 'a', default: true, description: 'Generate a unique user name'}),
+    generateuniqusername: flags.boolean({char: 'a', default: true, description: 'Generate a unique user name'}),
     profilename: flags.string({char: 'p', required: true, description: 'Profile name'}),
     permissionsetnames: flags.string({char: 'e', required: true, description: 'PermissionSet/PermissionSetGroup names'}),
-    usernamedomain: flags.string({char: 'd', default: 'globalinter.net', description: 'UserName domain. E.g globalinter.net'})
+    usernamedomain: flags.string({char: 'd', default: 'globalinter.net', description: 'UserName domain. E.g globalinter.net'}),
+    rolename: flags.string({char: 'r', description: 'Role name'})
   };
 
   protected static requiresUsername = true;
@@ -36,11 +37,26 @@ export default class Create extends SfdxCommand {
       throw new SfdxError(messages.getMessage('errorNoSfdxProject'));
     }
 
+    const conn = this.org.getConnection();
+
+    interface UserRole {
+      Id: string;
+      Name: string;
+    }
+    let userRoleId = null;
+    if (this.flags.rolename != null) {
+      const result = await conn.query<UserRole>(`SELECT Id, Name FROM UserRole WHERE Name = '${this.flags.rolename}'`);
+      if (result.records.length <= 0) {
+        throw new Error(`RoleName not found ${this.flags.rolename}`);
+      }
+      userRoleId = result.records[0].Id;
+    }
+
     this.ux.log('Creating users');
 
     const randomUserPrefix = (new Date()).getTime().toString(36) + Math.random().toString(36).slice(2);
     const userName = `${randomUserPrefix}@${this.flags.usernamedomain}`;
-    const createUserCommand = `sfdx force:user:create profileName="${this.flags.profilename}" username="${userName}" email="test@globalinter.net" permsets="${this.flags.permissionsetnames}" -u ${commandUserName}`;
+    const createUserCommand = `sfdx force:user:create UserRoleId="${userRoleId}" profileName="${this.flags.profilename}" username="${userName}" email="test@globalinter.net" permsets="${this.flags.permissionsetnames}" -u ${commandUserName}`;
 
     exec(createUserCommand, (error, stdout, stderr) => {
       if (error) {

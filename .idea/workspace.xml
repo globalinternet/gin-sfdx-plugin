@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ae558a4a-b6a8-46e3-8318-7eeda23f4d88" name="Default Changelist" comment="" />
+    <list default="true" id="ae558a4a-b6a8-46e3-8318-7eeda23f4d88" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/commands/gin/user/create.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/commands/gin/user/create.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/commands/gin/user/create.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/commands/gin/user/create.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/commands/gin/user/create.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/lib/commands/gin/user/create.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/trigger/migrationIdFieldTemplate.js 2.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands/gin/user/create.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/gin/user/create.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IlluminatedCloudWorkspaceSettings">
     <option name="moduleWorkspaceSettings">
@@ -67,7 +79,8 @@
       <updated>1582814119649</updated>
       <workItem from="1582814122975" duration="1168000" />
       <workItem from="1582815949790" duration="74000" />
-      <workItem from="1582816051949" duration="4943000" />
+      <workItem from="1582816051949" duration="7182000" />
+      <workItem from="1582895901354" duration="1454000" />
     </task>
     <servers />
   </component>
