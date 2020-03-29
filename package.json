@@ -1,6 +1,6 @@
 {
   "name": "gin-sfdx-plugin",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "author": "Dieffrei @dieffrei",
   "bugs": "https://github.com/globalinternet/gin-sfdx-plugin/issues",
   "dependencies": {

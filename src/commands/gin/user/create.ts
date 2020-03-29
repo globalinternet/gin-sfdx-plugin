@@ -23,7 +23,7 @@ export default class Create extends SfdxCommand {
   };
 
   protected static requiresUsername = true;
-  protected static supportsDevhubUsername = true;
+  protected static supportsDevhubUsername = false;
   protected static requiresProject = true;
 
   public async run(): Promise<AnyJson> {
@@ -56,7 +56,7 @@ export default class Create extends SfdxCommand {
 
     const randomUserPrefix = (new Date()).getTime().toString(36) + Math.random().toString(36).slice(2);
     const userName = `${randomUserPrefix}@${this.flags.usernamedomain}`;
-    const createUserCommand = `sfdx force:user:create UserRoleId="${userRoleId}" profileName="${this.flags.profilename}" username="${userName}" email="test@globalinter.net" permsets="${this.flags.permissionsetnames}" -u ${commandUserName}`;
+    const createUserCommand = `sfdx force:user:create UserRoleId="${userRoleId}" generatepassword="true" profileName="${this.flags.profilename}" username="${userName}" email="test@globalinter.net" permsets="${this.flags.permissionsetnames}" -u ${commandUserName}`;
 
     exec(createUserCommand, (error, stdout, stderr) => {
       if (error) {

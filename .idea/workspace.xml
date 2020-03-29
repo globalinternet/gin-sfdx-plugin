@@ -4,10 +4,57 @@
     <list default="true" id="ae558a4a-b6a8-46e3-8318-7eeda23f4d88" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/commands/gin/sharing/suspend 2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/commands/gin/sharing/suspend.d 2.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/commands/gin/sharing/suspend.js 2.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/commands/gin/source/trigger 2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/commands/gin/source/trigger.d 2.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/commands/gin/source/trigger.js 2.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/commands/gin/user/create 2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/commands/gin/user/create.d 2.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/commands/gin/user/create.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/commands/gin/user/create.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/commands/gin/user/create.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/commands/gin/user/create.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/commands/gin/user/create.js 2.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/commands/gin/user/create.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/lib/commands/gin/user/create.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/templates/trigger/migrationIdFieldTemplate.js 2.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/apexMetadataSource 2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/apexMetadataSource.d 2.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/apexMetadataSource.js 2.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/index 2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/index.d 2.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/index.js 2.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/selector/index 2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/selector/index.d 2.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/selector/index.js 2.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/selector/selectorClass 2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/selector/selectorClass.d 2.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/selector/selectorClass.js 2.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/selector/selectorInterface 2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/selector/selectorInterface.d 2.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/selector/selectorInterface.js 2.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/trigger/index 2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/trigger/index.d 2.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/trigger/index.js 2.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/trigger/migrationIdFieldTemplate 2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/trigger/migrationIdFieldTemplate.d 2.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/trigger/migrationIdFieldTemplate.js 3.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/trigger/migrationTriggerHandlerTemplate 2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/trigger/migrationTriggerHandlerTemplate.d 2.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/trigger/migrationTriggerHandlerTemplate.js 2.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/trigger/triggerMetadataSource 2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/trigger/triggerMetadataSource.d 2.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/trigger/triggerMetadataSource.js 2.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/trigger/triggerMigrationHandlerMetadata 2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/trigger/triggerMigrationHandlerMetadata.d 2.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/trigger/triggerMigrationHandlerMetadata.js 2.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/trigger/triggerTemplate 2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/trigger/triggerTemplate.d 2.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/templates/trigger/triggerTemplate.js 2.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils/index 2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils/index.d 2.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils/index.js 2.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils/sObject 2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils/sObject.d 2.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils/sObject.js 2.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/commands/gin/user/create.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/gin/user/create.ts" afterDir="false" />
     </list>
@@ -80,7 +127,9 @@
       <workItem from="1582814122975" duration="1168000" />
       <workItem from="1582815949790" duration="74000" />
       <workItem from="1582816051949" duration="7182000" />
-      <workItem from="1582895901354" duration="1454000" />
+      <workItem from="1582895901354" duration="3710000" />
+      <workItem from="1583749830588" duration="71000" />
+      <workItem from="1583750191212" duration="5660000" />
     </task>
     <servers />
   </component>
@@ -92,10 +141,11 @@
       <screen x="0" y="23" width="1680" height="975" />
     </state>
     <state x="506" y="267" width="667" height="486" key="find.popup/0.23.1680.975@0.23.1680.975" timestamp="1582815250867" />
-    <state x="505" y="237" width="670" height="158" key="search.everywhere.popup" timestamp="1582882598038">
-      <screen x="0" y="23" width="1680" height="974" />
+    <state x="505" y="237" width="670" height="158" key="search.everywhere.popup" timestamp="1583749908187">
+      <screen x="0" y="23" width="1680" height="973" />
     </state>
-    <state x="505" y="237" width="670" height="158" key="search.everywhere.popup/0.23.1680.974@0.23.1680.974" timestamp="1582882598038" />
+    <state x="505" y="237" width="670" height="158" key="search.everywhere.popup/0.23.1680.973@0.23.1680.973" timestamp="1583749908187" />
+    <state x="505" y="237" width="670" height="158" key="search.everywhere.popup/0.23.1680.974@0.23.1680.974" timestamp="1582996704236" />
     <state x="505" y="237" width="670" height="158" key="search.everywhere.popup/0.23.1680.975@0.23.1680.975" timestamp="1582815112221" />
   </component>
 </project>

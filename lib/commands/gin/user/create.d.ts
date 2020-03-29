@@ -4,7 +4,7 @@ export default class Create extends SfdxCommand {
     static description: string;
     static examples: string[];
     protected static flagsConfig: {
-        autousername: flags.Discriminated<flags.Boolean<boolean>>;
+        generateuniqusername: flags.Discriminated<flags.Boolean<boolean>>;
         profilename: flags.Discriminated<flags.Option<string>>;
         permissionsetnames: flags.Discriminated<flags.Option<string>>;
         usernamedomain: flags.Discriminated<flags.Option<string>>;
