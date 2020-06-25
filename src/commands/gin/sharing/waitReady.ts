@@ -47,15 +47,13 @@ export default class WaitReady extends SfdxCommand {
           totalTime += repeatInterval;
           const unfinishedPsGroups = await conn.tooling.query(psGroupQuery);
 
-          if (unfinishedPsGroups.totalSize > 0) {
-            if (totalTime > timeout) {
-              reject(this.getTimeoutErrorMessage(unfinishedPsGroups.records));
-            } else {
-              this.ux.startSpinner(
-                `Persmission Set Group left to resolve: ${unfinishedPsGroups.totalSize}`
-              );
-            }
+          if (unfinishedPsGroups.totalSize > 0 && totalTime > timeout) {
+            reject(this.getTimeoutErrorMessage(unfinishedPsGroups.records));
           }
+          
+          this.ux.startSpinner(
+            `Persmission Set Group left to resolve: ${unfinishedPsGroups.totalSize}`
+          );
           resolve(unfinishedPsGroups.totalSize === 0);
         }, repeatInterval)
       );
