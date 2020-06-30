@@ -1,26 +1,17 @@
 import { flags, SfdxCommand } from "@salesforce/command";
-import { Duration } from "@salesforce/kit";
-import { SfdxError } from "@salesforce/core";
-import * as fs from "fs";
+import { SfdxError, fs } from "@salesforce/core";
 
 export default class GenerateCustomMetadataFile extends SfdxCommand {
   public static description =
     "Waits until all Permission Set Groups are updated";
 
   public static examples = [
-    `$ sfdx gin:sharing:waitReady" 
-    all permission set groups were successfully updated
+    `$ sfdx gin:bourne:generatecustommetadata 
+    custom metadata generated
     `,
   ];
 
-  protected static flagsConfig = {
-    timeout: flags.minutes({
-      char: "t",
-      description: "During in minutes before command fails",
-      required: false,
-      default: Duration.minutes(1),
-    }),
-  };
+  protected static flagsConfig = {};
   protected static requiresUsername = false;
   protected static requiresDevhubUsername = false;
   protected static requiresProject = true;
@@ -31,29 +22,19 @@ export default class GenerateCustomMetadataFile extends SfdxCommand {
 
   private async generateConfigFile() {
     const fileName = "./scripts/cpq-export-template.json";
-    const data = await new Promise((resolve, reject) =>
-      fs.readFile(fileName, (err, data) => (err ? reject(err) : resolve(data)))
-    ).then((_: string) => JSON.parse(_));
-
-    // console.log(data);
+    const data = await fs.readFile(fileName)
+      .then(data => JSON.parse(data.toString('utf-8')));
     const files = [];
     const projectConfig = await this.project.resolveProjectConfig();
     const packageFolder = (<any[]>projectConfig.packageDirectories).find(_ => _.default);
     const cmtFolder = packageFolder.path + '/main/default/customMetadata';
-
-    const doesExist = await new Promise((resolve, reject) => fs.exists(cmtFolder, resolve.bind(this)));
-    if (!doesExist) {
-      throw new SfdxError(`${cmtFolder} does not exist. Please create this folder for Custom Metadata`);
-    }
 
     files.push(this.buildBourneConfigFile(cmtFolder, data));
     Object.entries(data.objects)
       .forEach(([sObjectName, sObjectData]) => files.push(this.buildBourneSObjectFile(cmtFolder, sObjectName, sObjectData)))
 
     this.ux.startSpinner(`start creating ${files.length} files`);
-    await Promise.all(files.map(file => new Promise((resolve, reject) => 
-      fs.writeFile(file.name, file.body, err=> 
-        err ? reject(err) : (this.ux.log(`created ${file.name}`), resolve())))));
+    await Promise.all(files.map(file =>  fs.writeFile(file.name, file.body)));
     this.ux.stopSpinner(`successfully created ${files.length} files`);
   }
 
@@ -84,7 +65,7 @@ export default class GenerateCustomMetadataFile extends SfdxCommand {
     </values>
     <values>
         <field>ExternalId__c</field>
-        <value xsi:type="xsd:string">${data.externalId || ''}</value>
+        <value xsi:type="xsd:string">${data.externalid || ''}</value>
     </values>
     <values>
         <field>HasRecordTypes__c</field>
