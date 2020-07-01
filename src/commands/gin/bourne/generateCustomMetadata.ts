@@ -40,7 +40,7 @@ export default class GenerateCustomMetadataFile extends SfdxCommand {
 
   buildBourneSObjectFile(cmtFolderPath, sObjectName, data) {
     return {
-      name: `${cmtFolderPath}/BourneSObject.${sObjectName.replace(/__(?=.+__c)/, '').replace(/__c$/, '')}.md-meta.xml`,
+      name: `${cmtFolderPath}/BourneSettingItem.${sObjectName.replace(/__(?=.+__c)/, '').replace(/__c$/, '')}.md-meta.xml`,
       body:
 `
 <?xml version="1.0" encoding="UTF-8"?>
@@ -48,7 +48,7 @@ export default class GenerateCustomMetadataFile extends SfdxCommand {
     <label>${sObjectName}</label>
     <protected>false</protected>
     <values>
-        <field>BourneConfig__c</field>
+        <field>BourneSetting__c</field>
         <value xsi:type="xsd:string">Default</value>
     </values>
     <values>
@@ -81,7 +81,7 @@ export default class GenerateCustomMetadataFile extends SfdxCommand {
   }
   buildBourneConfigFile(cmtFolderPath, data) {
     return {
-      name: `${cmtFolderPath}/BourneConfig.Default.md-meta.xml`,
+      name: `${cmtFolderPath}/BourneSetting.Default.md-meta.xml`,
       body: 
 `
 <?xml version="1.0" encoding="UTF-8"?>
