@@ -11,7 +11,14 @@ export default class GenerateCustomMetadataFile extends SfdxCommand {
     `,
   ];
 
-  protected static flagsConfig = {};
+  protected static flagsConfig = {
+    bournefile: flags.filepath({
+      char: 'f',
+      description: 'file path to generate CMT from',
+      required: false,
+      default: './scripts/cpq-export-template.json'
+    })
+  };
   protected static requiresUsername = false;
   protected static requiresDevhubUsername = false;
   protected static requiresProject = true;
@@ -21,7 +28,7 @@ export default class GenerateCustomMetadataFile extends SfdxCommand {
   }
 
   private async generateConfigFile() {
-    const fileName = "./scripts/cpq-export-template.json";
+    const fileName = this.flags.bournefile;
     const data = await fs.readFile(fileName)
       .then(data => JSON.parse(data.toString('utf-8')));
     const files = [];

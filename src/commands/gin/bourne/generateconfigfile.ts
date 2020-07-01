@@ -11,7 +11,14 @@ export default class GenerateConfigFile extends SfdxCommand {
     `,
   ];
 
-  protected static flagsConfig = {};
+  protected static flagsConfig = {
+    bournefile: flags.filepath({
+      char: 'f',
+      description: 'file name to generate',
+      required: false,
+      default: './scripts/cpq-export-template.json'
+    })
+  };
   protected static requiresUsername = true;
   protected static requiresDevhubUsername = false;
   protected static requiresProject = true;
@@ -63,7 +70,7 @@ export default class GenerateConfigFile extends SfdxCommand {
     };
 
     await fs.writeFile(
-      `./scripts/cpq-export-template.json`,
+      this.flags.bournefile,
       JSON.stringify(fileJson, null, 2)
     );
   }
