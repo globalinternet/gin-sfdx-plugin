@@ -1,14 +1,14 @@
-import { flags, SfdxCommand } from "@salesforce/command";
-import { SfdxError, fs } from "@salesforce/core";
+import { SfdxCommand } from '@salesforce/command';
+import { fs } from '@salesforce/core';
 
 export default class GenerateCustomMetadataFile extends SfdxCommand {
   public static description =
-    "Waits until all Permission Set Groups are updated";
+    'Waits until all Permission Set Groups are updated';
 
   public static examples = [
-    `$ sfdx gin:bourne:generatecustommetadata 
+    `$ sfdx gin:bourne:generatecustommetadata
     custom metadata generated
-    `,
+    `
   ];
 
   protected static flagsConfig = {
@@ -64,7 +64,7 @@ export default class GenerateCustomMetadataFile extends SfdxCommand {
     </values>
     <values>
         <field>Directory__c</field>
-        <value xsi:type="xsd:string">${data.directory|| ''}</value>
+        <value xsi:type="xsd:string">${data.directory || ''}</value>
     </values>
     <values>
         <field>EnableMultithreading__c</field>
@@ -84,9 +84,9 @@ export default class GenerateCustomMetadataFile extends SfdxCommand {
     </values>
 </CustomMetadata>
 `.trim()
-    }
+    };
   }
-  buildBourneConfigFile(cmtFolderPath, data) {
+  public buildBourneConfigFile(cmtFolderPath, data) {
     return {
       name: `${cmtFolderPath}/BourneSetting.Default.md-meta.xml`,
       body: 
@@ -122,5 +122,23 @@ export default class GenerateCustomMetadataFile extends SfdxCommand {
 </CustomMetadata>
 `.trim()
     };
+  }
+
+  private async generateConfigFile() {
+    const fileName = './scripts/cpq-export-template.json';
+    const data = await fs.readFile(fileName)
+      .then(data => JSON.parse(data.toString('utf-8')));
+    const files = [];
+    const projectConfig = await this.project.resolveProjectConfig();
+    const packageFolder = (projectConfig.packageDirectories as any[]).find(_ => _.default);
+    const cmtFolder = packageFolder.path + '/main/default/customMetadata';
+
+    files.push(this.buildBourneConfigFile(cmtFolder, data));
+    Object.entries(data.objects)
+      .forEach(([sObjectName, sObjectData]) => files.push(this.buildBourneSObjectFile(cmtFolder, sObjectName, sObjectData)));
+
+    this.ux.startSpinner(`start creating ${files.length} files`);
+    await Promise.all(files.map(file =>  fs.writeFile(file.name, file.body)));
+    this.ux.stopSpinner(`successfully created ${files.length} files`);
   }
 }
