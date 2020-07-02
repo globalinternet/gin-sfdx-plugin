@@ -1,4 +1,4 @@
-import { SfdxCommand } from '@salesforce/command';
+import { flags, SfdxCommand } from '@salesforce/command';
 import { fs } from '@salesforce/core';
 
 export default class GenerateCustomMetadataFile extends SfdxCommand {
