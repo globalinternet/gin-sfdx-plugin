@@ -22,7 +22,7 @@ $ npm install -g gin-sfdx-plugin
 $ sfdx COMMAND
 running command...
 $ sfdx (-v|--version|version)
-gin-sfdx-plugin/1.0.12 darwin-x64 node-v10.16.3
+gin-sfdx-plugin/1.0.13 darwin-x64 node-v10.16.3
 $ sfdx --help [COMMAND]
 USAGE
   $ sfdx COMMAND
@@ -30,47 +30,26 @@ USAGE
 ```
 <!-- usagestop -->
 <!-- commands -->
-* [`sfdx gin:bourne:generateCustomMetadata [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-ginbournegeneratecustommetadata---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
-* [`sfdx gin:bourne:generateconfigfile [-t <minutes>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-ginbournegenerateconfigfile--t-minutes--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx gin:bourne:generateconfigfile [-f <filepath>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-ginbournegenerateconfigfile--f-filepath--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx gin:bourne:generatecustommetadata [-f <filepath>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-ginbournegeneratecustommetadata--f-filepath---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx gin:sharing:suspend [-s <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-ginsharingsuspend--s-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx gin:sharing:waitready [-t <minutes>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-ginsharingwaitready--t-minutes--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx gin:source:trigger [-t <string>] [-m <string>] [-o <string>] [-h <string>] [-v <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-ginsourcetrigger--t-string--m-string--o-string--h-string--v-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx gin:user:create -p <string> -e <string> [-a] [-d <string>] [-r <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-ginusercreate--p-string--e-string--a--d-string--r-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 
-## `sfdx gin:bourne:generateCustomMetadata [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
-
-Waits until all Permission Set Groups are updated
-
-```
-USAGE
-  $ sfdx gin:bourne:generateCustomMetadata [--json] [--loglevel 
-  trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
-
-OPTIONS
-  --json                                                                            format output as json
-
-  --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
-                                                                                    this command invocation
-
-EXAMPLE
-  $ sfdx gin:bourne:generatecustommetadata
-       custom metadata generated
-```
-
-_See code: [lib/commands/gin/bourne/generateCustomMetadata.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.12/lib/commands/gin/bourne/generateCustomMetadata.js)_
-
-## `sfdx gin:bourne:generateconfigfile [-t <minutes>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+## `sfdx gin:bourne:generateconfigfile [-f <filepath>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
 Generates Bourne Config file based on Custom Metadata Type Records on the org
 
 ```
 USAGE
-  $ sfdx gin:bourne:generateconfigfile [-t <minutes>] [-u <string>] [--apiversion <string>] [--json] [--loglevel 
+  $ sfdx gin:bourne:generateconfigfile [-f <filepath>] [-u <string>] [--apiversion <string>] [--json] [--loglevel 
   trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
 
 OPTIONS
-  -t, --timeout=timeout                                                             [default: [object Object]] During in
-                                                                                    minutes before command fails
+  -f, --bournefile=bournefile                                                       [default:
+                                                                                    ./scripts/cpq-export-template.json]
+                                                                                    file name to generate
 
   -u, --targetusername=targetusername                                               username or alias for the target
                                                                                     org; overrides default target org
@@ -88,7 +67,33 @@ EXAMPLE
        config file generated
 ```
 
-_See code: [lib/commands/gin/bourne/generateconfigfile.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.12/lib/commands/gin/bourne/generateconfigfile.js)_
+_See code: [lib/commands/gin/bourne/generateconfigfile.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/bourne/generateconfigfile.js)_
+
+## `sfdx gin:bourne:generatecustommetadata [-f <filepath>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+
+Waits until all Permission Set Groups are updated
+
+```
+USAGE
+  $ sfdx gin:bourne:generatecustommetadata [-f <filepath>] [--json] [--loglevel 
+  trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+
+OPTIONS
+  -f, --bournefile=bournefile                                                       [default:
+                                                                                    ./scripts/cpq-export-template.json]
+                                                                                    file path to generate CMT from
+
+  --json                                                                            format output as json
+
+  --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
+                                                                                    this command invocation
+
+EXAMPLE
+  $ sfdx gin:bourne:generatecustommetadata
+       custom metadata generated
+```
+
+_See code: [lib/commands/gin/bourne/generatecustommetadata.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/bourne/generatecustommetadata.js)_
 
 ## `sfdx gin:sharing:suspend [-s <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -118,7 +123,7 @@ EXAMPLE
   Sharing calculations suspended
 ```
 
-_See code: [lib/commands/gin/sharing/suspend.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.12/lib/commands/gin/sharing/suspend.js)_
+_See code: [lib/commands/gin/sharing/suspend.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/sharing/suspend.js)_
 
 ## `sfdx gin:sharing:waitready [-t <minutes>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -149,7 +154,7 @@ EXAMPLE
        all permission set groups were successfully updated
 ```
 
-_See code: [lib/commands/gin/sharing/waitready.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.12/lib/commands/gin/sharing/waitready.js)_
+_See code: [lib/commands/gin/sharing/waitready.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/sharing/waitready.js)_
 
 ## `sfdx gin:source:trigger [-t <string>] [-m <string>] [-o <string>] [-h <string>] [-v <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -197,7 +202,7 @@ EXAMPLE
   $ sfdx gin:source:trigger
 ```
 
-_See code: [lib/commands/gin/source/trigger.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.12/lib/commands/gin/source/trigger.js)_
+_See code: [lib/commands/gin/source/trigger.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/source/trigger.js)_
 
 ## `sfdx gin:user:create -p <string> -e <string> [-a] [-d <string>] [-r <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -237,7 +242,7 @@ EXAMPLE
   $ sfdx gin:user:create --profilename Sales --permissionsetnames "Marketing, Sales" --roleName="SVP Manager"
 ```
 
-_See code: [lib/commands/gin/user/create.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.12/lib/commands/gin/user/create.js)_
+_See code: [lib/commands/gin/user/create.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/user/create.js)_
 <!-- commandsstop -->
 <!-- debugging-your-plugin -->
 # Debugging your plugin
