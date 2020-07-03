@@ -1,5 +1,4 @@
 import { flags, SfdxCommand } from "@salesforce/command";
-import { Duration } from "@salesforce/kit";
 import { SfdxError, fs } from "@salesforce/core";
 
 export default class GenerateConfigFile extends SfdxCommand {
@@ -13,16 +12,16 @@ export default class GenerateConfigFile extends SfdxCommand {
   ];
 
   protected static flagsConfig = {
-    timeout: flags.minutes({
-      char: "t",
-      description: "During in minutes before command fails",
+    bournefile: flags.filepath({
+      char: 'f',
+      description: 'file name to generate',
       required: false,
-      default: Duration.minutes(1),
-    }),
+      default: './scripts/cpq-export-template.json'
+    })
   };
   protected static requiresUsername = true;
   protected static requiresDevhubUsername = false;
-  protected static requiresProject = false;
+  protected static requiresProject = true;
 
   public async run(): Promise<any> {
     await this.generateConfigFile();
@@ -33,9 +32,9 @@ export default class GenerateConfigFile extends SfdxCommand {
         SELECT Id, ImportRetries__c, MaxPollCount__c, PayloadLength__c, PollBatchSize__c, UseManagedPackage__c, PollTimeout__c,
         (
             SELECT Id, Label, CleanupFields__c, Directory__c, ExternalId__c, Query__c, EnableMultithreading__c, HasRecordTypes__c
-            FROM BourneSObjects__r
+            FROM BourneSettingItems__r
         )
-        FROM BourneConfig__mdt
+        FROM BourneSetting__mdt
     `);
 
     if (!metadataBourneInfo.totalSize) {
@@ -53,8 +52,8 @@ export default class GenerateConfigFile extends SfdxCommand {
       payloadLength: record.PayloadLength__c,
       importRetries: record.ImportRetries__c,
       useManagedPackage: record.UseManagedPackage__c,
-      allObjects: record.BourneSObjects__r.records.map((_) => _.Label),
-      objects: record.BourneSObjects__r.records.reduce(
+      allObjects: record.BourneSettingItems__r.records.map((_) => _.Label),
+      objects: record.BourneSettingItems__r.records.reduce(
         (acc, _) =>
           Object.assign(acc, {
             [_.Label]: {
@@ -71,7 +70,7 @@ export default class GenerateConfigFile extends SfdxCommand {
     };
 
     await fs.writeFile(
-      `./scripts/cpq-export-template.json`,
+      this.flags.bournefile,
       JSON.stringify(fileJson, null, 2)
     );
   }

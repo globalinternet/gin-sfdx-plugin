@@ -1,4 +1,4 @@
-import { SfdxCommand } from '@salesforce/command';
+import { flags, SfdxCommand } from '@salesforce/command';
 import { fs } from '@salesforce/core';
 
 export default class GenerateCustomMetadataFile extends SfdxCommand {
@@ -11,7 +11,14 @@ export default class GenerateCustomMetadataFile extends SfdxCommand {
     `
   ];
 
-  protected static flagsConfig = {};
+  protected static flagsConfig = {
+    bournefile: flags.filepath({
+      char: 'f',
+      description: 'file path to generate CMT from',
+      required: false,
+      default: './scripts/cpq-export-template.json'
+    })
+  };
   protected static requiresUsername = false;
   protected static requiresDevhubUsername = false;
   protected static requiresProject = true;
@@ -20,9 +27,9 @@ export default class GenerateCustomMetadataFile extends SfdxCommand {
     await this.generateConfigFile();
   }
 
-  public buildBourneSObjectFile(cmtFolderPath, sObjectName, data) {
+  buildBourneSObjectFile(cmtFolderPath, sObjectName, data) {
     return {
-      name: `${cmtFolderPath}/BourneSObject.${sObjectName.replace(/__(?=.+__c)/, '').replace(/__c$/, '')}.md-meta.xml`,
+      name: `${cmtFolderPath}/BourneSettingItem.${sObjectName.replace(/__(?=.+__c)/, '').replace(/__c$/, '')}.md-meta.xml`,
       body:
 `
 <?xml version="1.0" encoding="UTF-8"?>
@@ -30,7 +37,7 @@ export default class GenerateCustomMetadataFile extends SfdxCommand {
     <label>${sObjectName}</label>
     <protected>false</protected>
     <values>
-        <field>BourneConfig__c</field>
+        <field>BourneSetting__c</field>
         <value xsi:type="xsd:string">Default</value>
     </values>
     <values>
@@ -63,8 +70,8 @@ export default class GenerateCustomMetadataFile extends SfdxCommand {
   }
   public buildBourneConfigFile(cmtFolderPath, data) {
     return {
-      name: `${cmtFolderPath}/BourneConfig.Default.md-meta.xml`,
-      body:
+      name: `${cmtFolderPath}/BourneSetting.Default.md-meta.xml`,
+      body: 
 `
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">

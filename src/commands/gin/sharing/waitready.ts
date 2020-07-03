@@ -25,10 +25,10 @@ export default class WaitReady extends SfdxCommand {
   protected static requiresProject = false;
 
   public async run(): Promise<any> {
-    this.ux.startSpinner("waiting for permission set groups to resolve");
+    this.ux.startSpinner("Waits for all Permission Set Groups are updated");
     await this.waitAllPermissions();
     this.ux.stopSpinner(
-      "\nall permission set groups were successfully updated"
+      "\nAll permission set groups were successfully updated"
     );
   }
 
@@ -81,7 +81,7 @@ export default class WaitReady extends SfdxCommand {
 
     return `
 Permission Set Group Update took too long: 
-Here is unfinished PersmissionSetGroups:
+Here are unfinished PersmissionSetGroups:
 ${stringifyRecords(records)}
         `;
   }
