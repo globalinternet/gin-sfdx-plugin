@@ -148,10 +148,10 @@ export default class ResetPassword extends SfdxCommand {
         );
 
         this.ux.log('before set creds');
-        await page.evaluate((username, password) => {
-            document.querySelector('input.username').value = username;
-            document.querySelector('input.password').value = password;
-        }, this.flags.testusername, password);
+
+        await page.type('input.username', this.flags.testusername);
+        await page.type('input.password', password);
+        
         this.ux.log('after set creds');
 
         await page.click('input[type=submit]');
