@@ -1,11 +1,5 @@
 import { flags, SfdxCommand } from '@salesforce/command';
 import * as puppeteer from 'puppeteer';
-import { handle } from '@oclif/errors';
-
-const mapSharingLabel = new Map([
-    ['sharingRule', 'Sharing Rule'],
-    ['groupMembership', 'Group Membership']
-]);
 
 export default class ResetPassword extends SfdxCommand {
     public static description = 'Suspend/Enable sharing calculation';
@@ -151,7 +145,7 @@ export default class ResetPassword extends SfdxCommand {
 
         await page.type('input.username', this.flags.testusername);
         await page.type('input.password', password);
-        
+
         this.ux.log('after set creds');
 
         await page.click('input[type=submit]');
