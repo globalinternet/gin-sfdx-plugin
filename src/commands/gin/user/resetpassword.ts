@@ -49,7 +49,7 @@ export default class ResetPassword extends SfdxCommand {
 
         const browser = await puppeteer.launch({
             args: ['--no-sandbox', '--disable-setuid-sandbox'],
-            headless: false && !(process.env.BROWSER_DEBUG === 'true')
+            headless: !(process.env.BROWSER_DEBUG === 'true')
         });
         this.ux.startSpinner(`Opening login page`);
 
