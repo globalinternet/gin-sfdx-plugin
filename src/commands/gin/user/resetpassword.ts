@@ -5,7 +5,7 @@ export default class ResetPassword extends SfdxCommand {
     public static description = 'Suspend/Enable sharing calculation';
 
     public static examples = [
-        '$ sfdx gin:sharing:suspend" \nSharing calculations suspended\n'
+        '$ sfdx gin:user:resetpassword -t testuser@example.test -u targetorg@org.test'
     ];
 
     protected static flagsConfig = {
