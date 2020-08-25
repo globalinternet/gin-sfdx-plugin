@@ -2,7 +2,7 @@ import { flags, SfdxCommand } from "@salesforce/command";
 import { SfdxError, fs } from "@salesforce/core";
 import { SandboxOrgConfig } from "@salesforce/core/lib/config/sandboxOrgConfig";
 
-export default class WaitReady extends SfdxCommand {
+export default class AssignPermissionSetLicense extends SfdxCommand {
     public static description =
         `Inserts CPQ Permission Set License to Users`;
 
