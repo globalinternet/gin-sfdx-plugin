@@ -30,10 +30,10 @@ The file format:
     protected static requiresProject = false;
 
     public async run(): Promise<any> {
-        await this.insertPermissionSetGroups();
+        await this.insertPermissionSetLicense();
     }
 
-    private async insertPermissionSetGroups() {
+    private async insertPermissionSetLicense() {
         const data = await fs.readFile(this.flags.permissionfile)
             .then(data => JSON.parse(data.toString('utf-8')));
         const psa = data.psa;
