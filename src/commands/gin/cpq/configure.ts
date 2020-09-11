@@ -1,14 +1,11 @@
 import { flags, SfdxCommand } from '@salesforce/command';
 import * as puppeteer from 'puppeteer';
-import { NPN_ENABLED } from 'constants';
-import { start } from 'repl';
-import { runInThisContext } from 'vm';
 
 export default class Configure extends SfdxCommand {
     public static description = 'Suspend/Enable sharing calculation';
 
     public static examples = [
-        '$ sfdx gin:sharing:suspend" \nSharing calculations suspended\n'
+        '$ sfdx gin:cpq:configure -u username'
     ];
 
     protected static flagsConfig = {
@@ -50,9 +47,12 @@ export default class Configure extends SfdxCommand {
         );
         this.ux.log('navigated home');
 
-        const navigationPromise = page.waitForNavigation();
+        const navigationPromise = page.waitForNavigation({timeout: 120000});
+        this.ux.log(page.url());
+        if (!page.url().includes('home/home.jsp')) {
+            await page.waitForRequest(request => request.url().includes('lightning'));
+        }
         // await navigationPromise;
-        await page.waitForRequest(request => request.url().includes('lightning'));
 
         await page.goto(
             `${instanceUrl}${installedPackagePath}`,
@@ -100,7 +100,7 @@ export default class Configure extends SfdxCommand {
         const firstTab = 'Line Editor';
 
         const tabSelector = '.rich-tab-header';
-        await page.waitForSelector(tabSelector);
+        await page.waitForSelector(tabSelector, {timeout: 120000});
 
         const setInput = async (label, value, labelElHandlers) => {
             labelElHandlers = labelElHandlers || await page.$$(`.labelCol`) 
