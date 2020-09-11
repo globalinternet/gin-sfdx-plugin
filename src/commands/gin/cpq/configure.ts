@@ -31,7 +31,7 @@ export default class Configure extends SfdxCommand {
     private async configureCpq() {
         const browser = await puppeteer.launch({
             args: ['--no-sandbox', '--disable-setuid-sandbox'],
-            headless: false && !(process.env.BROWSER_DEBUG === 'true')
+            headless: !(process.env.BROWSER_DEBUG === 'true')
         });
         const instanceUrl = this.org.getConnection().instanceUrl;
         const startUrl = '/lightning/setup/ImportedPackage/home';
