@@ -29,6 +29,7 @@ export default class AssignPermissionSetLicense extends SfdxCommand {
 
     private async insertPermissionSetGroups() {
         const permissionName = 'SalesforceCPQ_CPQStandardPerm';
+        const conn = this.org.getConnection();
 
         const users = await conn.query(`SELECT Id, Name FROM User ${this.flags.userfilter ? 'WHERE ' + this.flags.userfilter: ''}`);
         const permissionSetLicenses = await conn.query(`SELECT Id, DeveloperName FROM PermissionSetLicense WHERE DeveloperName = '${permissionName}'`);
@@ -39,6 +40,6 @@ export default class AssignPermissionSetLicense extends SfdxCommand {
             })
         );
 
-        await conn.insert('PermissionSetLicense', permissionSetAssignments);
+        await conn.insert('PermissionSetLicenseAssignment', permissionSetAssignments);
     }
 }
