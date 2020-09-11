@@ -1,6 +1,4 @@
 import { flags, SfdxCommand } from "@salesforce/command";
-import { SfdxError, fs } from "@salesforce/core";
-import { SandboxOrgConfig } from "@salesforce/core/lib/config/sandboxOrgConfig";
 
 export default class AssignPermissionSetLicense extends SfdxCommand {
     public static description =
@@ -31,8 +29,8 @@ export default class AssignPermissionSetLicense extends SfdxCommand {
         const permissionName = 'SalesforceCPQ_CPQStandardPerm';
         const conn = this.org.getConnection();
 
-        const users = await conn.query(`SELECT Id, Name FROM User ${this.flags.userfilter ? 'WHERE ' + this.flags.userfilter: ''}`);
-        const permissionSetLicenses = await conn.query(`SELECT Id, DeveloperName FROM PermissionSetLicense WHERE DeveloperName = '${permissionName}'`);
+        const users: {records: any[]} = await conn.query(`SELECT Id, Name FROM User ${this.flags.userfilter ? 'WHERE ' + this.flags.userfilter: ''}`);
+        const permissionSetLicenses: { records: any[] }= await conn.query(`SELECT Id, DeveloperName FROM PermissionSetLicense WHERE DeveloperName = '${permissionName}'`);
 
         const permissionSetAssignments = users.records.map(_ => Object.assign({
                 PermissionSetLicenseId: permissionSetLicenses.records[0].Id,

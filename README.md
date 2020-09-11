@@ -22,7 +22,7 @@ $ npm install -g gin-sfdx-plugin
 $ sfdx COMMAND
 running command...
 $ sfdx (-v|--version|version)
-gin-sfdx-plugin/1.0.13 darwin-x64 node-v10.16.3
+gin-sfdx-plugin/1.0.13 darwin-x64 node-v14.6.0
 $ sfdx --help [COMMAND]
 USAGE
   $ sfdx COMMAND
@@ -32,10 +32,15 @@ USAGE
 <!-- commands -->
 * [`sfdx gin:bourne:generateconfigfile [-f <filepath>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-ginbournegenerateconfigfile--f-filepath--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx gin:bourne:generatecustommetadata [-f <filepath>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-ginbournegeneratecustommetadata--f-filepath---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx gin:cpq:configure [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-gincpqconfigure--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx gin:sharing:suspend [-s <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-ginsharingsuspend--s-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx gin:sharing:waitready [-t <minutes>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-ginsharingwaitready--t-minutes--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx gin:source:trigger [-t <string>] [-m <string>] [-o <string>] [-h <string>] [-v <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-ginsourcetrigger--t-string--m-string--o-string--h-string--v-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx gin:user:activateusers -f <filepath> [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-ginuseractivateusers--f-filepath--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx gin:user:assignpsg -f <filepath> [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-ginuserassignpsg--f-filepath--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx gin:user:assignpsl [-f <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-ginuserassignpsl--f-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 * [`sfdx gin:user:create -p <string> -e <string> [-a] [-d <string>] [-r <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-ginusercreate--p-string--e-string--a--d-string--r-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx gin:user:resetpassword -t <string> [-o <string>] [-n <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-ginuserresetpassword--t-string--o-string--n-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 
 ## `sfdx gin:bourne:generateconfigfile [-f <filepath>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -94,6 +99,33 @@ EXAMPLE
 ```
 
 _See code: [lib/commands/gin/bourne/generatecustommetadata.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/bourne/generatecustommetadata.js)_
+
+## `sfdx gin:cpq:configure [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+
+Suspend/Enable sharing calculation
+
+```
+USAGE
+  $ sfdx gin:cpq:configure [-u <string>] [--apiversion <string>] [--json] [--loglevel 
+  trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+
+OPTIONS
+  -u, --targetusername=targetusername                                               username or alias for the target
+                                                                                    org; overrides default target org
+
+  --apiversion=apiversion                                                           override the api version used for
+                                                                                    api requests made by this command
+
+  --json                                                                            format output as json
+
+  --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
+                                                                                    this command invocation
+
+EXAMPLE
+  $ sfdx gin:cpq:configure -u username
+```
+
+_See code: [lib/commands/gin/cpq/configure.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/cpq/configure.js)_
 
 ## `sfdx gin:sharing:suspend [-s <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -204,6 +236,111 @@ EXAMPLE
 
 _See code: [lib/commands/gin/source/trigger.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/source/trigger.js)_
 
+## `sfdx gin:user:activateusers -f <filepath> [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+
+Acitvates Users based on User Names specified in the file
+
+```
+USAGE
+  $ sfdx gin:user:activateusers -f <filepath> [-u <string>] [--apiversion <string>] [--json] [--loglevel 
+  trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+
+OPTIONS
+  -f, --permissionfile=permissionfile                                               (required) [default:
+                                                                                    ./data-migration/psa.json] file with
+                                                                                    permission set assignments
+
+  -u, --targetusername=targetusername                                               username or alias for the target
+                                                                                    org; overrides default target org
+
+  --apiversion=apiversion                                                           override the api version used for
+                                                                                    api requests made by this command
+
+  --json                                                                            format output as json
+
+  --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
+                                                                                    this command invocation
+
+DESCRIPTION
+  The file format:
+  {
+       "userName": "Tom Sanders",
+       "groupName": "AwesomeAdmin"
+  }
+
+EXAMPLE
+  $ sfdx gin:user:activateusers -f ./file/path.json -u target_org"
+```
+
+_See code: [lib/commands/gin/user/activateusers.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/user/activateusers.js)_
+
+## `sfdx gin:user:assignpsg -f <filepath> [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+
+Inserts Permission Set Groups to Users based on User Names specified in the file
+
+```
+USAGE
+  $ sfdx gin:user:assignpsg -f <filepath> [-u <string>] [--apiversion <string>] [--json] [--loglevel 
+  trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+
+OPTIONS
+  -f, --permissionfile=permissionfile                                               (required) [default:
+                                                                                    ./data-migration/psa.json] file with
+                                                                                    permission set assignments
+
+  -u, --targetusername=targetusername                                               username or alias for the target
+                                                                                    org; overrides default target org
+
+  --apiversion=apiversion                                                           override the api version used for
+                                                                                    api requests made by this command
+
+  --json                                                                            format output as json
+
+  --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
+                                                                                    this command invocation
+
+DESCRIPTION
+  The file format:
+  {
+       "userName": "Tom Sanders",
+       "groupName": "AwesomeAdmin"
+  }
+
+EXAMPLE
+  $ sfdx gin:user:assignpsg -f ./file/path.json -u target_org"
+```
+
+_See code: [lib/commands/gin/user/assignpsg.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/user/assignpsg.js)_
+
+## `sfdx gin:user:assignpsl [-f <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+
+Inserts CPQ Permission Set License to Users
+
+```
+USAGE
+  $ sfdx gin:user:assignpsl [-f <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel 
+  trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+
+OPTIONS
+  -f, --userfilter=userfilter                                                       filter string for users
+
+  -u, --targetusername=targetusername                                               username or alias for the target
+                                                                                    org; overrides default target org
+
+  --apiversion=apiversion                                                           override the api version used for
+                                                                                    api requests made by this command
+
+  --json                                                                            format output as json
+
+  --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
+                                                                                    this command invocation
+
+EXAMPLE
+  $ sfdx gin:user:assignpsl -u target_org"
+```
+
+_See code: [lib/commands/gin/user/assignpsl.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/user/assignpsl.js)_
+
 ## `sfdx gin:user:create -p <string> -e <string> [-a] [-d <string>] [-r <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
 Creates user
@@ -243,6 +380,41 @@ EXAMPLE
 ```
 
 _See code: [lib/commands/gin/user/create.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/user/create.js)_
+
+## `sfdx gin:user:resetpassword -t <string> [-o <string>] [-n <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+
+Suspend/Enable sharing calculation
+
+```
+USAGE
+  $ sfdx gin:user:resetpassword -t <string> [-o <string>] [-n <string>] [-u <string>] [--apiversion <string>] [--json] 
+  [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+
+OPTIONS
+  -n, --password2=password2                                                         [default: GinTest@0@2!] New password
+
+  -o, --password1=password1                                                         [default: GinTest@0@2!1] Temporary
+                                                                                    password
+
+  -t, --testusername=testusername                                                   (required) username to reset
+                                                                                    password
+
+  -u, --targetusername=targetusername                                               username or alias for the target
+                                                                                    org; overrides default target org
+
+  --apiversion=apiversion                                                           override the api version used for
+                                                                                    api requests made by this command
+
+  --json                                                                            format output as json
+
+  --loglevel=(trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL)  [default: warn] logging level for
+                                                                                    this command invocation
+
+EXAMPLE
+  $ sfdx gin:user:resetpassword -t testuser@example.test -u targetorg@org.test
+```
+
+_See code: [lib/commands/gin/user/resetpassword.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/user/resetpassword.js)_
 <!-- commandsstop -->
 <!-- debugging-your-plugin -->
 # Debugging your plugin
