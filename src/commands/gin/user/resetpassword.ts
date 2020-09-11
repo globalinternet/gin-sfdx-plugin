@@ -13,7 +13,19 @@ export default class ResetPassword extends SfdxCommand {
             char: 't',
             description: 'username to reset password',
             required: true,
-        })
+        }),
+        password1: flags.string({
+            char: 'o',
+            description: 'Temporary password',
+            required: false,
+            default: 'GinTest@0@2!1'
+        }),
+        password2: flags.string({
+            char: 'n',
+            description: 'New password',
+            required: false,
+            default: 'GinTest@0@2!'
+        }),
     };
 
     // Comment this out if your command does not require an org username
@@ -39,8 +51,9 @@ export default class ResetPassword extends SfdxCommand {
     private async resetPassword() {
         const instanceUrl = this.org.getConnection().instanceUrl;
 
-        const password1 = 'GinTest@0@2!1';
-        const password2 = 'GinTest@0@2!';
+        const password2 = this.flags.password2;
+        const password1 = this.flags.password1;
+        this.ux.log('password1', password1);
 
         this.ux.startSpinner('Setting initial password');
 
@@ -59,6 +72,7 @@ export default class ResetPassword extends SfdxCommand {
         this.ux.startSpinner('redirecting to password reset');
 
         await this.waitForNextPage(page);
+        this.ux.log('redirected to a new page', this.state);
         if (this.state === 'password') {
             await this.handleChangePasswordPage(page, password1, password2);
             this.ux.startSpinner('redirecting to home page/change phone number');
@@ -66,9 +80,13 @@ export default class ResetPassword extends SfdxCommand {
             this.ux.log('change phone number redirect');
             await browser.close();
             return;
-        } else {
+        } else if (this.state === 'error') {
             this.ux.log('password is incorrect', this.state);
-            await browser.close();
+            try {
+                await browser.close();
+            } catch(e) {
+
+            }
             return;
         }
 
@@ -94,6 +112,13 @@ export default class ResetPassword extends SfdxCommand {
             homePageIndicator,
             addPhoneNumberIndicator
         ];
+
+        // const loginErrorSelector = '.loginError#error';
+        // const loginError = page.$(loginErrorSelector);
+        // if (loginError) {
+        //     this.state = 'error';
+        //     return;
+        // }
 
         await page.waitForRequest(request => possibleUrls.reduce((acc, item) => acc || request.url().includes(item) , false));
         this.ux.log(page.url());
@@ -133,6 +158,7 @@ export default class ResetPassword extends SfdxCommand {
             }
         }
         let requestResult = await setPassword(password);
+        this.ux.logJson(requestResult);
     }
 
     async handleInitialLogin(page, password) {
@@ -150,8 +176,7 @@ export default class ResetPassword extends SfdxCommand {
 
         await page.click('input[type=submit]');
 
-        // do something when password is already set.
-        const loginError = '.logicError';
+        
     }
 
     async handleChangePasswordPage(page, password1, password2) {
