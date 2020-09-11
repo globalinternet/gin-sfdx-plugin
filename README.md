@@ -22,7 +22,7 @@ $ npm install -g gin-sfdx-plugin
 $ sfdx COMMAND
 running command...
 $ sfdx (-v|--version|version)
-gin-sfdx-plugin/1.0.13 darwin-x64 node-v14.6.0
+gin-sfdx-plugin/1.1.1 darwin-x64 node-v10.16.3
 $ sfdx --help [COMMAND]
 USAGE
   $ sfdx COMMAND
@@ -72,7 +72,7 @@ EXAMPLE
        config file generated
 ```
 
-_See code: [lib/commands/gin/bourne/generateconfigfile.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/bourne/generateconfigfile.js)_
+_See code: [lib/commands/gin/bourne/generateconfigfile.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.1.1/lib/commands/gin/bourne/generateconfigfile.js)_
 
 ## `sfdx gin:bourne:generatecustommetadata [-f <filepath>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -98,7 +98,7 @@ EXAMPLE
        custom metadata generated
 ```
 
-_See code: [lib/commands/gin/bourne/generatecustommetadata.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/bourne/generatecustommetadata.js)_
+_See code: [lib/commands/gin/bourne/generatecustommetadata.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.1.1/lib/commands/gin/bourne/generatecustommetadata.js)_
 
 ## `sfdx gin:cpq:configure [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -125,7 +125,7 @@ EXAMPLE
   $ sfdx gin:cpq:configure -u username
 ```
 
-_See code: [lib/commands/gin/cpq/configure.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/cpq/configure.js)_
+_See code: [lib/commands/gin/cpq/configure.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.1.1/lib/commands/gin/cpq/configure.js)_
 
 ## `sfdx gin:sharing:suspend [-s <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -155,7 +155,7 @@ EXAMPLE
   Sharing calculations suspended
 ```
 
-_See code: [lib/commands/gin/sharing/suspend.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/sharing/suspend.js)_
+_See code: [lib/commands/gin/sharing/suspend.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.1.1/lib/commands/gin/sharing/suspend.js)_
 
 ## `sfdx gin:sharing:waitready [-t <minutes>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -186,7 +186,7 @@ EXAMPLE
        all permission set groups were successfully updated
 ```
 
-_See code: [lib/commands/gin/sharing/waitready.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/sharing/waitready.js)_
+_See code: [lib/commands/gin/sharing/waitready.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.1.1/lib/commands/gin/sharing/waitready.js)_
 
 ## `sfdx gin:source:trigger [-t <string>] [-m <string>] [-o <string>] [-h <string>] [-v <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -234,7 +234,7 @@ EXAMPLE
   $ sfdx gin:source:trigger
 ```
 
-_See code: [lib/commands/gin/source/trigger.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/source/trigger.js)_
+_See code: [lib/commands/gin/source/trigger.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.1.1/lib/commands/gin/source/trigger.js)_
 
 ## `sfdx gin:user:activateusers -f <filepath> [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -272,7 +272,7 @@ EXAMPLE
   $ sfdx gin:user:activateusers -f ./file/path.json -u target_org"
 ```
 
-_See code: [lib/commands/gin/user/activateusers.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/user/activateusers.js)_
+_See code: [lib/commands/gin/user/activateusers.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.1.1/lib/commands/gin/user/activateusers.js)_
 
 ## `sfdx gin:user:assignpsg -f <filepath> [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -310,7 +310,7 @@ EXAMPLE
   $ sfdx gin:user:assignpsg -f ./file/path.json -u target_org"
 ```
 
-_See code: [lib/commands/gin/user/assignpsg.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/user/assignpsg.js)_
+_See code: [lib/commands/gin/user/assignpsg.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.1.1/lib/commands/gin/user/assignpsg.js)_
 
 ## `sfdx gin:user:assignpsl [-f <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -339,7 +339,7 @@ EXAMPLE
   $ sfdx gin:user:assignpsl -u target_org"
 ```
 
-_See code: [lib/commands/gin/user/assignpsl.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/user/assignpsl.js)_
+_See code: [lib/commands/gin/user/assignpsl.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.1.1/lib/commands/gin/user/assignpsl.js)_
 
 ## `sfdx gin:user:create -p <string> -e <string> [-a] [-d <string>] [-r <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -379,7 +379,7 @@ EXAMPLE
   $ sfdx gin:user:create --profilename Sales --permissionsetnames "Marketing, Sales" --roleName="SVP Manager"
 ```
 
-_See code: [lib/commands/gin/user/create.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/user/create.js)_
+_See code: [lib/commands/gin/user/create.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.1.1/lib/commands/gin/user/create.js)_
 
 ## `sfdx gin:user:resetpassword -t <string> [-o <string>] [-n <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -414,7 +414,7 @@ EXAMPLE
   $ sfdx gin:user:resetpassword -t testuser@example.test -u targetorg@org.test
 ```
 
-_See code: [lib/commands/gin/user/resetpassword.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.0.13/lib/commands/gin/user/resetpassword.js)_
+_See code: [lib/commands/gin/user/resetpassword.js](https://github.com/globalinternet/gin-sfdx-plugin/blob/v1.1.1/lib/commands/gin/user/resetpassword.js)_
 <!-- commandsstop -->
 <!-- debugging-your-plugin -->
 # Debugging your plugin
