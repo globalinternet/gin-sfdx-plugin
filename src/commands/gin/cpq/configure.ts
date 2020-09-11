@@ -1,14 +1,11 @@
 import { flags, SfdxCommand } from '@salesforce/command';
 import * as puppeteer from 'puppeteer';
-import { NPN_ENABLED } from 'constants';
-import { start } from 'repl';
-import { runInThisContext } from 'vm';
 
 export default class Configure extends SfdxCommand {
     public static description = 'Suspend/Enable sharing calculation';
 
     public static examples = [
-        '$ sfdx gin:sharing:suspend" \nSharing calculations suspended\n'
+        '$ sfdx gin:cpq:configure -u username'
     ];
 
     protected static flagsConfig = {
@@ -40,36 +37,46 @@ export default class Configure extends SfdxCommand {
         const startUrl = '/lightning/setup/ImportedPackage/home';
         const installedPackagePath = '/0A3?setupid=ImportedPackage&retURL=%2Fui%2Fsetup%2FSetup%3Fsetupid%3DStudio';
 
-        const page = await browser.newPage();
+        try {
+            const page = await browser.newPage();
 
-        await page.goto(
-            `${instanceUrl}/secur/frontdoor.jsp?sid=${
-            this.org.getConnection().accessToken
-            }&startURL=${encodeURIComponent(startUrl)}`,
-            { waitUntil: ['load', 'domcontentloaded', 'networkidle0'] }
-        );
-        this.ux.log('navigated home');
+            await page.goto(
+                `${instanceUrl}/secur/frontdoor.jsp?sid=${
+                this.org.getConnection().accessToken
+                }&startURL=${encodeURIComponent(startUrl)}`,
+                { waitUntil: ['load', 'domcontentloaded', 'networkidle0'] }
+            );
+            this.ux.log('navigated home');
 
-        const navigationPromise = page.waitForNavigation();
-        // await navigationPromise;
-        await page.waitForRequest(request => request.url().includes('lightning'));
+            const navigationPromise = page.waitForNavigation({ timeout: 120000 });
+            this.ux.log(page.url());
+            if (!page.url().includes('home/home.jsp')) {
+                await page.waitForRequest(request => request.url().includes('lightning'));
+            }
+            // await navigationPromise;
 
-        await page.goto(
-            `${instanceUrl}${installedPackagePath}`,
-            { waitUntil: ['load', 'domcontentloaded', 'networkidle0'] }
-        );
+            await page.goto(
+                `${instanceUrl}${installedPackagePath}`,
+                { waitUntil: ['load', 'domcontentloaded', 'networkidle0'] }
+            );
 
-        await navigationPromise;
+            await navigationPromise;
 
-        this.ux.log('navigated to package');
+            this.ux.log('navigated to package');
 
 
-        this.ux.log('start waiting');
-        this.ux.log('stop waiting navigation');
+            this.ux.log('start waiting');
+            this.ux.log('stop waiting navigation');
 
-        await this.navigateToPackageConfig(page);
+            await this.navigateToPackageConfig(page);
 
-        await this.configureLineEditor(page, browser);
+            await this.configureLineEditor(page, browser);
+        }
+        catch(e) {
+
+        }
+
+        await browser.close();
     }
 
     async navigateToPackageConfig(page) {
@@ -100,10 +107,10 @@ export default class Configure extends SfdxCommand {
         const firstTab = 'Line Editor';
 
         const tabSelector = '.rich-tab-header';
-        await page.waitForSelector(tabSelector);
+        await page.waitForSelector(tabSelector, { timeout: 120000 });
 
         const setInput = async (label, value, labelElHandlers) => {
-            labelElHandlers = labelElHandlers || await page.$$(`.labelCol`) 
+            labelElHandlers = labelElHandlers || await page.$$(`.labelCol`)
 
             await page.evaluate((label, value, ...labelEls) => {
                 console.log(label);
@@ -133,7 +140,7 @@ export default class Configure extends SfdxCommand {
 
         await navigateToTab(firstTab);
         let labelElHandlers = await page.$$(`.labelCol`);
-        
+
         await setInput('Visualize Product Hierarchy', true, labelElHandlers);
         await setInput('Totals Field', 'doNotDisplay', labelElHandlers);
         await setInput('Group Subtotals Field', 'doNotDisplay', labelElHandlers);
@@ -185,11 +192,11 @@ export default class Configure extends SfdxCommand {
             console.log(link);
             link.click();
         });
-        
+
         this.ux.log('after link click');
 
         this.ux.log('wait popup');
-        const newPagePromise = new Promise(x => browser.once('targetcreated', target => x(target.page()))); 
+        const newPagePromise = new Promise(x => browser.once('targetcreated', target => x(target.page())));
         const popup = await newPagePromise;
         this.ux.log('popup is here');
 
@@ -201,8 +208,8 @@ export default class Configure extends SfdxCommand {
         await navigationPromise;
         this.ux.log('after page refresh');
 
-        while(true) {
-            
+        while (true) {
+
             await new Promise((res, rej) => setTimeout(() => res(), 500));
             let pages = await browser.pages();
             if (pages.length === 2) {
@@ -211,7 +218,7 @@ export default class Configure extends SfdxCommand {
 
         }
         this.ux.log('after accept');
-        
+
         // need somehow to wait until page refreshes
         this.ux.log('after page refresh');
     }
