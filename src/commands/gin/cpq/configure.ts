@@ -1,4 +1,4 @@
-import { flags, SfdxCommand } from '@salesforce/command';
+import { SfdxCommand } from '@salesforce/command';
 import * as puppeteer from 'puppeteer';
 
 export default class Configure extends SfdxCommand {
@@ -83,10 +83,9 @@ export default class Configure extends SfdxCommand {
         const navigationPromise = page.waitForNavigation();
 
         const packageNameSelector = '.bRelatedList th.dataCell a';
-        const packageName = 'CPQ';
         await page.waitForSelector(packageNameSelector);
 
-        await page.$$eval(packageNameSelector, els => Array.from(els).filter(_ => _.innerHTML.includes('CPQ'))[0].click());
+        await page.$$eval(packageNameSelector, els => Array.from(<any[]>els).filter((_) => _.innerHTML.includes('CPQ'))[0].click());
         await navigationPromise;
 
 
@@ -133,7 +132,7 @@ export default class Configure extends SfdxCommand {
             await page.$$eval(tabSelector, (els, tabName) => {
                 console.log(els);
                 console.log(tabName);
-                Array.from(els).filter(_ => _.innerHTML.includes(tabName))[0].click();
+                Array.from(<any[]>els).filter(_ => _.innerHTML.includes(tabName))[0].click();
             }, tabName);
             await new Promise((res, rej) => setTimeout(() => res(), 300));
         }
@@ -186,9 +185,9 @@ export default class Configure extends SfdxCommand {
         await navigateToTab('Pricing and Calculation');
 
         this.ux.log('before link click');
-        const link = await page.$$eval('.data2Col', els => {
+        await page.$$eval('.data2Col', els => {
             console.log(els);
-            const link = Array.from(els).filter(_ => _.innerHTML.includes('Authorize new calculation service'))[0].querySelector('a');
+            const link = Array.from(<any[]>els).filter(_ => _.innerHTML.includes('Authorize new calculation service'))[0].querySelector('a');
             console.log(link);
             link.click();
         });
@@ -197,7 +196,7 @@ export default class Configure extends SfdxCommand {
 
         this.ux.log('wait popup');
         const newPagePromise = new Promise(x => browser.once('targetcreated', target => x(target.page())));
-        const popup = await newPagePromise;
+        const popup: any = await newPagePromise;
         this.ux.log('popup is here');
 
         await popup.waitForSelector('#oaapprove');

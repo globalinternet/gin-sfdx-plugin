@@ -1,6 +1,5 @@
 import { flags, SfdxCommand } from "@salesforce/command";
-import { SfdxError, fs } from "@salesforce/core";
-import { SandboxOrgConfig } from "@salesforce/core/lib/config/sandboxOrgConfig";
+import { fs } from "@salesforce/core";
 
 export default class AssignPermissionSetGroup extends SfdxCommand {
     public static description =
@@ -40,8 +39,8 @@ The file format:
 
         const conn = this.org.getConnection();
 
-        const users = await conn.query(`SELECT Id, Name FROM User WHERE Name IN ('${data.psa.map(_ => _.userName).join('\',\'')}')`);
-        const permissionSetGroups = await conn.query(`SELECT Id, DeveloperName FROM PermissionSetGroup WHERE DeveloperName IN ('${data.psa.map(_ => _.groupName).join('\',\'')}')`);
+        const users: {records: any[]} = await conn.query(`SELECT Id, Name FROM User WHERE Name IN ('${data.psa.map(_ => _.userName).join('\',\'')}')`);
+        const permissionSetGroups: {records: any[]} = await conn.query(`SELECT Id, DeveloperName FROM PermissionSetGroup WHERE DeveloperName IN ('${data.psa.map(_ => _.groupName).join('\',\'')}')`);
 
         // if (psa.length != users.records.length || psa.length != permissionSetGroups.records.length) {
         //     throw new SfdxError('Parts of the data missing in the org. Please check User.Name and PermissionSetGroup.DeveloperName');

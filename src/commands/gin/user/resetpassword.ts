@@ -49,7 +49,6 @@ export default class ResetPassword extends SfdxCommand {
     }
 
     private async resetPassword() {
-        const instanceUrl = this.org.getConnection().instanceUrl;
 
         const password2 = this.flags.password2;
         const password1 = this.flags.password1;
@@ -135,7 +134,7 @@ export default class ResetPassword extends SfdxCommand {
     async resetPasswordWithRest(password) {
         const conn = this.org.getConnection();
 
-        let usersResult = await conn.query(`SELECT Id FROM User WHERE Username = '${this.flags.testusername}'`);
+        let usersResult: {records: any[]} = await conn.query(`SELECT Id FROM User WHERE Username = '${this.flags.testusername}'`);
 
         let user = usersResult.records[0];
 
@@ -157,8 +156,8 @@ export default class ResetPassword extends SfdxCommand {
                 return false;
             }
         }
-        let requestResult = await setPassword(password);
-        this.ux.logJson(requestResult);
+        let requestResult: Boolean = await setPassword(password);
+        this.ux.log('' + requestResult);
     }
 
     async handleInitialLogin(page, password) {

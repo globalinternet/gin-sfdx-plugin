@@ -1,6 +1,5 @@
 import { flags, SfdxCommand } from "@salesforce/command";
-import { SfdxError, fs } from "@salesforce/core";
-import { SandboxOrgConfig } from "@salesforce/core/lib/config/sandboxOrgConfig";
+import { fs, Connection } from "@salesforce/core";
 
 export default class AssignPermissionSetGroup extends SfdxCommand {
     public static description =
@@ -40,18 +39,16 @@ The file format:
                 return JSON.parse(data.toString('utf-8'))
             });
         this.ux.logJson(data);
-        const psa = data.psa;
+        const conn:Connection = this.org.getConnection();
 
-        const conn = this.org.getConnection();
-
-        const users = await conn.query(`SELECT Id, Email, IsActive FROM User WHERE Name IN ('${data.psa.map(_ => _.userName).join('\',\'')}')`);
+        const users:{records:any[]} = await conn.query(`SELECT Id, Email, IsActive FROM User WHERE Name IN ('${data.psa.map(_ => _.userName).join('\',\'')}')`);
         this.ux.logJson(users.records);
         users.records.forEach(user => {
             user.IsActive = true;
             user.Email = user.Email.replace(/\.invalid/);
         })
 
-        const result = await conn.update(users.records);
+        const result = await conn.update('User', users.records);
         this.ux.logJson(result);
 
     }
