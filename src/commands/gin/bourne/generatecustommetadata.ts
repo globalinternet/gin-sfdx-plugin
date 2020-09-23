@@ -1,5 +1,6 @@
 import { flags, SfdxCommand } from '@salesforce/command';
 import { fs } from '@salesforce/core';
+import { runInThisContext } from 'vm';
 
 export default class GenerateCustomMetadataFile extends SfdxCommand {
   public static description =
@@ -17,6 +18,11 @@ export default class GenerateCustomMetadataFile extends SfdxCommand {
       description: 'file path to generate CMT from',
       required: false,
       default: './scripts/cpq-export-template.json'
+    }),
+    bournesettingname: flags.string({
+      char: 's',
+      description: 'Describes what Bourne Settings to use',
+      default: 'Default'
     })
   };
   protected static requiresUsername = false;
@@ -27,9 +33,13 @@ export default class GenerateCustomMetadataFile extends SfdxCommand {
     await this.generateConfigFile();
   }
 
-  buildBourneSObjectFile(cmtFolderPath, sObjectName, data) {
+  buildBourneSObjectFile(cmtFolderPath, sObjectName, data, index) {
+    let itemName: string = `${sObjectName.replace(/__(?=.+__c)/, '').replace(/__c$/, '').replace(/[ _]/g,'')}`;
+    if (this.flags.bournesettingname !== 'Default') {
+      itemName = this.flags.bournesettingname + '_' + itemName;
+    }
     return {
-      name: `${cmtFolderPath}/BourneSettingItem.${sObjectName.replace(/__(?=.+__c)/, '').replace(/__c$/, '')}.md-meta.xml`,
+      name: `${cmtFolderPath}/BourneSettingItem.${itemName}.md-meta.xml`,
       body:
 `
 <?xml version="1.0" encoding="UTF-8"?>
@@ -38,7 +48,7 @@ export default class GenerateCustomMetadataFile extends SfdxCommand {
     <protected>false</protected>
     <values>
         <field>BourneSetting__c</field>
-        <value xsi:type="xsd:string">Default</value>
+        <value xsi:type="xsd:string">${this.flags.bournesettingname}</value>
     </values>
     <values>
         <field>CleanupFields__c</field>
@@ -64,18 +74,22 @@ export default class GenerateCustomMetadataFile extends SfdxCommand {
         <field>Query__c</field>
         <value xsi:type="xsd:string">${data.query}</value>
     </values>
+    <values>
+        <field>Sequence__c</field>
+        <value xsi:type="xsd:string">${10 * (index + 1)}</value>
+    </values>
 </CustomMetadata>
 `.trim()
     };
   }
   public buildBourneConfigFile(cmtFolderPath, data) {
     return {
-      name: `${cmtFolderPath}/BourneSetting.Default.md-meta.xml`,
+      name: `${cmtFolderPath}/BourneSetting.${this.flags.bournesettingname}.md-meta.xml`,
       body: 
 `
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <label>Default</label>
+    <label>${this.flags.bournesettingname}</label>
     <protected>false</protected>
     <values>
         <field>ImportRetries__c</field>
@@ -107,8 +121,7 @@ export default class GenerateCustomMetadataFile extends SfdxCommand {
   }
 
   private async generateConfigFile() {
-    const fileName = './scripts/cpq-export-template.json';
-    const data = await fs.readFile(fileName)
+    const data = await fs.readFile(this.flags.bournefile)
       .then(data => JSON.parse(data.toString('utf-8')));
     const files = [];
     const projectConfig = await this.project.resolveProjectConfig();
@@ -117,7 +130,7 @@ export default class GenerateCustomMetadataFile extends SfdxCommand {
 
     files.push(this.buildBourneConfigFile(cmtFolder, data));
     Object.entries(data.objects)
-      .forEach(([sObjectName, sObjectData]) => files.push(this.buildBourneSObjectFile(cmtFolder, sObjectName, sObjectData)));
+      .forEach(([sObjectName, sObjectData], index) => files.push(this.buildBourneSObjectFile(cmtFolder, sObjectName, sObjectData, index)));
 
     this.ux.startSpinner(`start creating ${files.length} files`);
     await Promise.all(files.map(file =>  fs.writeFile(file.name, file.body)));
