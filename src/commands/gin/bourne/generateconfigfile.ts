@@ -17,6 +17,11 @@ export default class GenerateConfigFile extends SfdxCommand {
       description: 'file name to generate',
       required: false,
       default: './scripts/cpq-export-template.json'
+    }),
+    bournesettingname: flags.string({
+      char: 's',
+      description: 'Describes what Bourne Settings to use',
+      default: 'Default'
     })
   };
   protected static requiresUsername = true;
@@ -31,15 +36,17 @@ export default class GenerateConfigFile extends SfdxCommand {
     const metadataBourneInfo = await this.org.getConnection().query(`
         SELECT Id, ImportRetries__c, MaxPollCount__c, PayloadLength__c, PollBatchSize__c, UseManagedPackage__c, PollTimeout__c,
         (
-            SELECT Id, Label, CleanupFields__c, Directory__c, ExternalId__c, Query__c, EnableMultithreading__c, HasRecordTypes__c
+            SELECT Id, Label, CleanupFields__c, Directory__c, ExternalId__c, Query__c, Sequence__c, EnableMultithreading__c, HasRecordTypes__c
             FROM BourneSettingItems__r
+            ORDER BY Sequence__c
         )
         FROM BourneSetting__mdt
+        WHERE DeveloperName = '${this.flags.bournesettingname}'
     `);
 
     if (!metadataBourneInfo.totalSize) {
       throw new SfdxError(
-        "No BourneConfig record found. Please generate them before running this command"
+        `No ${this.flags.bournesettingname} BourneConfig record found. Please generate them before running this command`
       );
     }
 
